@@ -1,32 +1,7 @@
 import z from 'zod';
-import { FastifyTypedInstance } from './types/types';
+import { FastifyTypedInstance } from './@types/fastify';
+import { userRoute } from './routes/user.route';
 
 export async function routes(app: FastifyTypedInstance) {
-  app.get(
-    '/users',
-    {
-      schema: {
-        tags: ['users'],
-        description: 'Get all users',
-      },
-    },
-    async () => {
-      return { hello: 'world' };
-    },
-  );
-
-  app.post(
-    '/users',
-    {
-      schema: {
-        tags: ['users'],
-        description: 'Create a user',
-        body: z.object({
-          name: z.string(),
-          email: z.string().email(),
-        }),
-      },
-    },
-    async () => {},
-  );
+  app.register(userRoute);
 }
