@@ -5,6 +5,7 @@
 ![Fastify](https://img.shields.io/badge/fastify-%23000000.svg?style=for-the-badge&logo=fastify&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23C1E1C1?style=for-the-badge&logo=swagger&logoColor=black)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma)
 
 Esta é uma API REST desenvolvida para simular o ecossistema de uma loja de roupas profissional. O sistema gerencia desde o catálogo de produtos (com variações de tamanho e cor) até a baixa automática de estoque no momento da venda.
 
