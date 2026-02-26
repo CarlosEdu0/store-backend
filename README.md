@@ -22,7 +22,7 @@ Esta é uma API REST desenvolvida para simular o ecossistema de uma loja de roup
 - **Framework:** [Fastify](https://www.fastify.io/) (Focado em performance)
 - **Linguagem:** TypeScript
 - **Banco de Dados:** MySQL
-- **ORM:** Prisma ou TypeORM (opcional)
+- **ORM:** Prisma
 - **Validação:** Zod
 - **Documentação:** Swagger (Fastify Swagger UI)
 
