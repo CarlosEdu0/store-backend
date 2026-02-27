@@ -7,10 +7,20 @@ class UserRepositoryPrisma implements UserRepository {
     return data;
   }
   async findById(id: number): Promise<User | null> {
-    throw new Error('Method not implemented.');
+    const data = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return data;
   }
   async findByEmail(email: string): Promise<User | null> {
-    throw new Error('Method not implemented.');
+    const data = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    return data;
   }
   async create(user: UserCreate): Promise<User> {
     const data = await prisma.user.create({

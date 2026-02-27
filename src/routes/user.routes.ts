@@ -1,7 +1,10 @@
 import { FastifyTypedInstance } from '@/@types/fastify';
 import { createUserController } from '@/controllers/users/create.users';
 import { listUserController } from '@/controllers/users/list.users';
-import { createUserSchema, listUserSchema, updateUserSchema } from '@/schemas/user.schema';
+import { loginUserController } from '@/controllers/users/login.users';
+import { updateUserController } from '@/controllers/users/update.user';
+import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { createUserSchema, listUserSchema, loginSchema, updateUserSchema } from '@/schemas/user.schema';
 
 export async function userRoute(app: FastifyTypedInstance) {
   app.get(
@@ -24,9 +27,16 @@ export async function userRoute(app: FastifyTypedInstance) {
     '/:id',
     {
       schema: updateUserSchema,
+      preHandler: verifyJwt
     },
-    async (req, reply) => {
-      return { hello: 'world' };
+    updateUserController
+  );
+
+  app.post(
+    '/login',
+    {
+      schema: loginSchema,
     },
+    loginUserController
   );
 }
