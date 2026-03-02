@@ -1,16 +1,17 @@
 import { FastifyTypedInstance } from '@/@types/fastify';
 import { createUserController } from '@/controllers/users/create.users';
+import { deleteUserController } from '@/controllers/users/delete.user';
 import { listUserController } from '@/controllers/users/list.users';
-import { loginUserController } from '@/controllers/users/login.users';
 import { updateUserController } from '@/controllers/users/update.user';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { createUserSchema, listUserSchema, loginSchema, updateUserSchema } from '@/schemas/user.schema';
+import { createUserSchema, deleteUserSchema, listUserSchema, updateUserSchema } from '@/schemas/user.schema';
 
 export async function userRoute(app: FastifyTypedInstance) {
   app.get(
     '/',
     {
       schema: listUserSchema,
+      preHandler: verifyJwt,
     },
     listUserController,
   );
@@ -27,16 +28,17 @@ export async function userRoute(app: FastifyTypedInstance) {
     '/:id',
     {
       schema: updateUserSchema,
-      preHandler: verifyJwt
+      preHandler: verifyJwt,
     },
-    updateUserController
+    updateUserController,
   );
 
-  app.post(
-    '/login',
+  app.delete(
+    '/:id',
     {
-      schema: loginSchema,
+      schema: deleteUserSchema,
+      preHandler: verifyJwt,
     },
-    loginUserController
+    deleteUserController,
   );
 }

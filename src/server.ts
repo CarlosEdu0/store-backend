@@ -27,6 +27,15 @@ app.register(fastifySwagger, {
       description: 'Store API documentation',
       version: '1.0.0',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 });
@@ -35,7 +44,6 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 });
 
-// General routes
 app.register(routes);
 
 // Middlewares
@@ -52,4 +60,5 @@ app
   })
   .then(() => {
     console.log('🚀 HTTP server running on http://localhost:3333');
+    console.log('📄 API documentation on http://localhost:3333/docs');
   });

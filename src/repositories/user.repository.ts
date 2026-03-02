@@ -1,4 +1,6 @@
-import { User, UserCreate, UserRepository } from '@/interfaces/user.interface';
+import { UserCreate } from '@/interfaces/user/create.inteface';
+import { UserRepository } from '@/interfaces/user/repository.interface';
+import { User } from '@/interfaces/user/user.interface';
 import { prisma } from '@/lib/prisma';
 
 class UserRepositoryPrisma implements UserRepository {
@@ -32,8 +34,17 @@ class UserRepositoryPrisma implements UserRepository {
   async update(user: User): Promise<User> {
     throw new Error('Method not implemented.');
   }
-  async delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: number): Promise<boolean> {
+    const data = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+
+    return data.deletedAt !== null;
   }
 }
 

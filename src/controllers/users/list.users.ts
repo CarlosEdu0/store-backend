@@ -1,4 +1,4 @@
-import { User } from '@/interfaces/user.interface';
+import { User } from '@/interfaces/user/user.interface';
 import UserService from '@/services/user.service';
 import { FastifyReply, FastifyRequest } from 'fastify';
 

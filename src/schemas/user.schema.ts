@@ -1,6 +1,5 @@
 import { FastifySchema } from 'fastify';
 import z from 'zod';
-import be from 'zod/v4/locales/be.js';
 
 const userSchema = z.object({
   id: z.number(),
@@ -13,8 +12,13 @@ const userSchema = z.object({
 });
 
 export const listUserSchema: FastifySchema = {
-  tags: ['Users'],
+  tags: ['User'],
   description: 'List all users',
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
   response: {
     200: z.array(userSchema),
   },
@@ -27,7 +31,7 @@ export const userCreateSchemaBody = z.object({
 });
 
 export const createUserSchema: FastifySchema = {
-  tags: ['Users'],
+  tags: ['User'],
   description: 'Create a user',
   body: userCreateSchemaBody,
   response: {
@@ -43,9 +47,13 @@ export const updateUserSchemaBody = z.object({
 });
 
 export const updateUserSchema: FastifySchema = {
-  tags: ['Users'],
+  tags: ['User'],
   description: 'Update a user',
-  security: [{bearerAuth: []}],
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
   params: z.object({
     id: z.string(),
   }),
@@ -55,18 +63,18 @@ export const updateUserSchema: FastifySchema = {
   },
 };
 
-export const loginSchemaBody = z.object({
-  email: z.email("Email inválido"),
-  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-});
-
-export const loginSchema: FastifySchema = {
-  tags: ['Users'],
-  description: 'Login a user',
-  body: loginSchemaBody,
+export const deleteUserSchema: FastifySchema = {
+  tags: ['User'],
+  description: 'Delete a user',
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
+  params: z.object({
+    id: z.string(),
+  }),
   response: {
-    200: z.object({
-      token: z.string(),
-    }),
+    204: z.null(),
   },
 };
