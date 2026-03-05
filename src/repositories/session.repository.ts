@@ -1,8 +1,5 @@
-import {
-  Session,
-  SessionCreate,
-  SessionRepository,
-} from '@/interfaces/session/repository.interface';
+import { SessionCreate, SessionRepository } from '@/interfaces/session/repository.interface';
+import { Session } from '@/interfaces/session/session.interface';
 import { prisma } from '@/lib/prisma';
 
 class SessionRepositoryPrisma implements SessionRepository {

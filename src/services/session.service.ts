@@ -1,7 +1,7 @@
 import { SessionCreate, SessionRepository } from '@/interfaces/session/repository.interface';
 import { Session } from '@/interfaces/session/session.interface';
 import SessionRepositoryPrisma from '@/repositories/session.repository';
-import { getRefreshTokenExpiration } from '@/utils/date-utils';
+import { getRefreshTokenExpiration } from '@/utils/functions/date-utils';
 class SessionService {
   private sessionRepository: SessionRepository;
   constructor() {

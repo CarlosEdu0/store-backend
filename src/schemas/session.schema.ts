@@ -20,3 +20,18 @@ export const loginSchema: FastifySchema = {
     200: loginSchemaResponse,
   },
 };
+
+export const logoutSchema: FastifySchema = {
+  tags: ['Session'],
+  description: 'Logout a user',
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
+  response: {
+    200: z.object({
+      message: z.string(),
+    }),
+  },
+};
