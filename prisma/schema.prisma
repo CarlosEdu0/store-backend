@@ -10,6 +10,7 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   name      String
+  picture   Bytes?
   email     String    @unique
   password  String
   role      Int       @default(0)
@@ -20,6 +21,7 @@ model User {
   sessions Session[]
 
   @@map("users")
+  reviews Review[]
 }
 
 model Session {
@@ -33,4 +35,98 @@ model Session {
   deletedAt    DateTime?
 
   @@map("sessions")
+}
+
+model Product {
+  id        Int           @id @default(autoincrement())
+  name      String
+  picture   Bytes
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+
+
+  sizes     ProductSize[]
+
+  @@map("products")
+  productGroups ProductGroup[]
+}
+
+model Size {
+  id        Int           @id @default(autoincrement())
+  name      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+
+  products  ProductSize[]
+
+  @@map("sizes")
+}
+
+model ProductSize {
+  id        Int           @id @default(autoincrement())
+  product   Product       @relation(fields: [productId], references: [id])
+  productId Int
+  size      Size          @relation(fields: [sizeId], references: [id])
+  sizeId    Int
+  price     Decimal       @db.Decimal(10, 2)
+  stock     Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+
+  orderItems OrderItem[]
+  @@map("product_sizes")
+  reviews Review[]
+}
+
+model ProductGroup {
+  id          Int       @id @default(autoincrement())
+  name        String    
+  products    Product[] 
+
+  @@map("product_groups")
+}
+
+model Order {
+  id          Int @id       @default(autoincrement())
+  userId      Int
+  orderItems  OrderItem[]
+  status      Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime? 
+
+ @@map("orders")
+}
+
+model OrderItem {
+  id            Int         @id @default(autoincrement())
+  order         Order       @relation(fields: [orderId], references: [id])
+  orderId       Int
+  productSize   ProductSize @relation(fields: [productSizeId], references: [id])
+  productSizeId Int
+  price         Decimal     @db.Decimal(10, 2)
+  quantity      Int         @default(1) 
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+
+  @@map("order_items") 
+}
+
+model Review {
+  id            Int         @id @default(autoincrement())
+  rating        Int      
+  comment       String?     @db.Text
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  productSize   ProductSize @relation(fields: [productSizeId], references: [id])
+  productSizeId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+
+  @@map("reviews")
 }
