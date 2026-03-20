@@ -16,7 +16,7 @@ export const loginSchema: FastifySchema = {
   tags: ['Session'],
   description: 'Login a user',
   body: loginSchemaBody,
-  response: {
+  response: { 
     200: loginSchemaResponse,
   },
 };

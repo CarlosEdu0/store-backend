@@ -1,0 +1,9 @@
+export interface Product {
+  id: number;
+  name: string;
+  picture: Buffer;
+  categoryId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+}
