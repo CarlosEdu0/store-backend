@@ -1,11 +1,7 @@
-export interface Product {
-  id: number;
+export interface ProductCreate {
   name: string;
   picture: string;
   categoryId: number;
   description: string | null;
   productGroupId: number;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date | null;
 }

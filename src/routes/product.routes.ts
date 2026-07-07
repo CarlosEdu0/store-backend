@@ -3,7 +3,7 @@ import createProductController from "@/controllers/products/create.products";
 import deleteProductController from "@/controllers/products/delete.products";
 import listProductController from "@/controllers/products/list.products";
 import { verifyJwt } from "@/http/middlewares/verify-jwt";
-import { listProductSchema, productCreateSchema, productDeleteSchema } from "@/schemas/products.schemas";
+import { listProductSchema, productCreateSchema, productDeleteSchema } from "@/schemas/product.schemas";
 
 export async function productRoute(app: FastifyTypedInstance) {
     app.get(
